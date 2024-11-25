@@ -1,0 +1,53 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.0/schema.json",
+    "version": "v1.0",
+    "name": "EmployeeITAgent01(Local)",
+    "description": "Employee IT Helper Agent",
+    "instructions": "$[file('instruction.txt')]",
+    "conversation_starters": [
+        {
+            "title": "VPN question(10:05)",
+            "text": "How can I connect to VPN?"
+        },
+        {
+            "title": "Phishing email",
+            "text": "How can I handle a phishing email?"
+        },
+        {
+            "title": "My tickets",
+            "text": "get all my tickets"
+        },
+        {
+            "title": "My Normal priority tickets",
+            "text": "My tickets with priority as Normal"
+        },
+        {
+            "title": "Create an ticket (Outlook cannot work)",
+            "text": "Create an ticket with title as 'Outlook cannot work', description as 'My Outlook cannot connect to company email address' and priority as 'Normal'"
+        }
+    ],
+    "capabilities": [
+        {
+            "name": "OneDriveAndSharePoint",
+            "items_by_url": [
+                {
+                    "url": "https://m365cpi78904853.sharepoint.com/sites/ContosoAI/ITAgentDocuments"
+                }
+            ]
+        },
+        {
+            "name": "GraphConnectors",
+            "connections": [
+                {
+                    "connection_id": "ServiceNowKB3"
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "id": "ticketapiplugin",
+            "file": "ticketapi_plugin.json"
+        }
+    ]
+}

@@ -1,0 +1,246 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "version": "1.3.0",
+        "title": "Ticket API - Documentation",
+        "description": "Description of Ticket API",
+        "termsOfService": "https://mysite.com/terms",
+        "contact": {
+            "name": "Developer name",
+            "email": "dev@example.com",
+            "url": "https://devwebsite.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "servers": [
+        {
+            "url": "${{OPENAPI_SERVER_URL}}/",
+            "description": "Production server"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Ticket"
+        }
+    ],
+    "paths": {
+        "/api/me/tickets": {
+            "get": {
+                "tags": [
+                    "Ticket"
+                ],
+                "summary": "Get my ticket based on optional title, priority and/or status query parameters",
+                "description": "Get my ticket by query",
+                "operationId": "getMyticket",
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "the title of the ticket",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "priority",
+                        "in": "query",
+                        "description": "the priority of the ticket which can be Low, Normal, High, Critical",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "the status of the ticket which can be Open, InProgress, Closed",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetMyTicketResult"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid parameters"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Ticket"
+                ],
+                "summary": "Create a ticket on behalf of the logged in user and return the created ticket information including ticket id, title, description, priority, creator and url",
+                "description": "Create a ticket on behalf of the logged in user and return the created ticket information",
+                "operationId": "createMyTicket",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateMyTicketRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateMyTicketResult"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid CreateMyTicketRequest"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "GetMyTicketResult": {
+                "type": "object",
+                "properties": {
+                    "results": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MyTicket"
+                        }
+                    }
+                }
+            },
+            "MyTicket": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/schemas/ticketId"
+                    },
+                    "title": {
+                        "$ref": "#/components/schemas/ticketTitle"
+                    },
+                    "description": {
+                        "$ref": "#/components/schemas/ticketDescription"
+                    },
+                    "priority": {
+                        "$ref": "#/components/schemas/ticketPriority"
+                    },
+                    "assignee": {
+                        "$ref": "#/components/schemas/ticketAssignee"
+                    },
+                    "url": {
+                        "$ref": "#/components/schemas/ticketUrl"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/ticketStatus"
+                    },
+                    "creationDate": {
+                        "$ref": "#/components/schemas/ticketCreationDate"
+                    },
+                    "updateDate": {
+                        "$ref": "#/components/schemas/ticketUpdateDate"
+                    }
+                }
+            },
+            "ticketId": {
+                "type": "string",
+                "description": "The ticket ID",
+                "example": "TK1731142105634"
+            },
+            "ticketTitle": {
+                "type": "string",
+                "description": "The title of the ticket",
+                "example": "Title of the ticket"
+            },
+            "ticketDescription": {
+                "type": "string",
+                "description": "The description of the ticket",
+                "example": "Description of the ticket"
+            },
+            "ticketPriority": {
+                "type": "string",
+                "enum": [
+                    "Low",
+                    "Normal",
+                    "High",
+                    "Critical"
+                ],
+                "description": "The priority of the ticket",
+                "example": "Normal"
+            },
+            "ticketAssignee": {
+                "type": "string",
+                "description": "The assigneee of the ticket",
+                "example": "frank@m365cpi78904853.onmicrosoft.com"
+            },
+            "ticketUrl": {
+                "type": "string",
+                "description": "The URL of the ticket",
+                "example": "https://ezcode.org/api/me/tickets/TK1234567890"
+            },
+            "ticketStatus": {
+                "type": "string",
+                "enum": [
+                    "Open",
+                    "InProgress",
+                    "Closed"
+                ],
+                "description": "The status of the ticket",
+                "example": "Open"
+            },
+            "ticketCreationDate": {
+                "type": "string",
+                "description": "The creation date of the ticket",
+                "example": "2021-09-01T00:00:00Z"
+            },
+            "ticketUpdateDate": {
+                "type": "string",
+                "description": "The update date of the ticket",
+                "example": "2021-09-01T00:00:00Z"
+            },
+            "CreateMyTicketRequest": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "$ref": "#/components/schemas/ticketTitle"
+                    },
+                    "description": {
+                        "$ref": "#/components/schemas/ticketDescription"
+                    },
+                    "priority": {
+                        "$ref": "#/components/schemas/ticketDescription"
+                    }
+                }
+            },
+            "CreateMyTicketResult": {
+                "type": "object",
+                "properties": {
+                    "results": {
+                        "$ref": "#/components/schemas/MyTicket"
+                    }
+                }
+            }
+        }
+    }
+}

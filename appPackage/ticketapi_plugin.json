@@ -1,0 +1,132 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.1/schema.json",
+    "schema_version": "v2.1",
+    "name_for_human": "EmployeeITHelperAgent",
+    "description_for_human": "Description of Ticket API",
+    "namespace": "employeeithelperagent",
+    "functions": [
+        {
+            "name": "getMyticket",
+            "description": "Return detailed information about the support ticket identified from optional filters like title, priority and/or status of ticket. Multiple filters can be used in combination to refine the list of tickets returned",
+            "capabilities": {
+                "response_semantics": {
+                    "data_path": "$.results",
+                    "properties": {
+                        "title": "$.title",
+                        "subtitle": "$.id",
+                        "url": "$.url"
+                    },
+                    "static_template": {
+                        "type": "AdaptiveCard",
+                        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                        "version": "1.5",
+                        "body": [
+                            {
+                                "type": "Container",
+                                "$data": "${$root}",
+                                "items": [
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "id: ${if(id, id, 'N/A')}",
+                                        "wrap": true
+                                    },
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "title: ${if(title, title, 'N/A')}",
+                                        "wrap": true
+                                    },
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "description: ${if(description, description, 'N/A')}",
+                                        "wrap": true
+                                    },
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "priority: ${if(priority, priority, 'N/A')}",
+                                        "wrap": true
+                                    },
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "assignee: ${if(assignee, assignee, 'N/A')}",
+                                        "wrap": true
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "name": "createMyTicket",
+            "description": "Create a ticket on behalf of the logged in user and return the created ticket information",
+            "capabilities": {
+                "response_semantics": {
+                    "data_path": "$",
+                    "properties": {
+                        "title": "$.results.title",
+                        "subtitle": "$.results.id"
+                    },
+                    "static_template": {
+                        "type": "AdaptiveCard",
+                        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                        "version": "1.5",
+                        "body": [
+                            {
+                                "type": "TextBlock",
+                                "text": "results.id: ${if(results.id, results.id, 'N/A')}",
+                                "wrap": true
+                            },
+                            {
+                                "type": "TextBlock",
+                                "text": "results.title: ${if(results.title, results.title, 'N/A')}",
+                                "wrap": true
+                            },
+                            {
+                                "type": "TextBlock",
+                                "text": "results.description: ${if(results.description, results.description, 'N/A')}",
+                                "wrap": true
+                            },
+                            {
+                                "type": "TextBlock",
+                                "text": "results.priority: ${if(results.priority, results.priority, 'N/A')}",
+                                "wrap": true
+                            },
+                            {
+                                "type": "TextBlock",
+                                "text": "results.assignee: ${if(results.assignee, results.assignee, 'N/A')}",
+                                "wrap": true
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    ],
+    "runtimes": [
+        {
+            "type": "OpenApi",
+            "auth": {
+                "type": "None"
+            },
+            "spec": {
+                "url": "openapi_ticketapi.json"
+            },
+            "run_for_functions": [
+                "getMyticket",
+                "createMyTicket"
+            ]
+        }
+    ],
+    "capabilities": {
+        "localization": {},
+        "conversation_starters": [
+            {
+                "text": "Get my ticket based on optional title, priority an"
+            },
+            {
+                "text": "Create a ticket on behalf of the logged in user an"
+            }
+        ]
+    }
+}
