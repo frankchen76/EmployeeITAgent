@@ -1,17 +1,21 @@
 {
     "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.0/schema.json",
     "version": "v1.0",
-    "name": "EmployeeITAgent01(Local)",
+    "name": "EmployeeITAgent(Local)",
     "description": "Employee IT Helper Agent",
     "instructions": "$[file('instruction.txt')]",
     "conversation_starters": [
         {
-            "title": "VPN question(10:05)",
+            "title": "VPN question",
             "text": "How can I connect to VPN?"
         },
         {
             "title": "Phishing email",
             "text": "How can I handle a phishing email?"
+        },
+        {
+            "title": "Power Platform environment",
+            "text": "What is Power Platform environment type?"
         },
         {
             "title": "My tickets",
@@ -31,7 +35,7 @@
             "name": "OneDriveAndSharePoint",
             "items_by_url": [
                 {
-                    "url": "https://m365cpi78904853.sharepoint.com/sites/ContosoAI/ITAgentDocuments"
+                    "url": "https://m365cpi78904853.sharepoint.com/sites/ContosoITAgent/Shared%20Documents"
                 }
             ]
         },
