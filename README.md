@@ -61,6 +61,40 @@ SECRET_STORAGE_ACCOUNT_CONNECTION_STRING=UseDevelopmentStorage=true
 
 3. Access the declarative agent by opening the flyout, then select the "EmployeeITAgent(Local)".
 
+## API Summary
+EmployeeITAgent sample included a Tickets API which wrapped up as a Azure Function. 
+
+### GET request
+```javascript
+GET /api/me/tickets - get my tickets information
+GET /api/me/tickets?status=open&priority=normal - get my tickets with status is open and priority is normal
+GET /api/me/tickets?title=vpn&status=open&priority=normal - get my tickets where title contains "vpn", status is open and priority is normal. 
+```
+
+### POST request
+```javascript
+POST /api/me/tickets - Add a new ticket
+Request body:
+{
+    "title": "VPN doesn't work",
+    "description": "VPN doesn't work",
+    "priority": "Normal"
+}
+Response body:
+{
+    result:{
+        "id": "fb0e25a8-2fe7-4a2b-8406-fa5f474d2f67",
+        "title": "VPN doesn't work",
+        "description": "VPN doesn't work",
+        "priority": "Normal",
+        "assignee": "KaiC@M365CPI78904853.OnMicrosoft.com",
+        "creationDate": "2024-11-07T00:00:00Z",
+        "updateDate": "2024-11-11T00:00:00Z",
+        "status": "Open",
+        "url": "https://ldkv4tjn-7071.usw2.devtunnels.ms/api/me/tickets/fb0e25a8-2fe7-4a2b-8406-fa5f474d2f67"
+    }
+}
+```
 
 ## What's included in the template
 
@@ -76,12 +110,14 @@ The following files can be customized and demonstrate an example implementation 
 
 | File                                         | Contents                                                                                          |
 | -------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| `src/functions/repairs.ts`                   | The main file of a function in Azure Functions.                                                   |
-| `src/repairsData.json`                       | The data source for the repair API.                                                               |
-| `appPackage/apiSpecificationFile/repair.yml` | A file that describes the structure and behavior of the repair API.                               |
-| `appPackage/manifest.json`                   | Teams application manifest that defines metadata for your plugin inside Microsoft Teams.          |
-| `appPackage/ai-plugin.json`                  | The manifest file for your API Plugin that contains information for your API and used by LLM. |
-| `appPackage/repairDeclarativeAgent.json` | Define the behaviour and configurations of the declarative agent. |
+| `src/functions/myTickets.ts`                   | The main file of a function in Azure Functions.                                                   |
+| `src/functions/apiDoc.ts`                   | The Azure function to display OpenAPI doc Functions.                                                   |
+| `src/data/SampleTickets.json`                       | The data source for the tickets API.                                                               |
+| `src/data/SampleAssignee.json`                       | The data source for the assignees API.                                                               |
+| `appPackage/manifest.json`                   | Teams application manifest that defines the agent inside Microsoft Teams.          |
+| `appPackage/declarativeAgent.json` | Define the behaviour and configurations of the declarative agent. |
+| `appPackage/ticketapi_plugin.json`                  | The manifest file for Ticket API Plugin that contains information for your API and used by LLM. |
+| `appPackage/openapi_ticketapi.json` | A file that describes the structure and behavior of the Tickets API.                               |
 
 The following are Teams Toolkit specific project files. You can [visit a complete guide on Github](https://github.com/OfficeDev/TeamsFx/wiki/Teams-Toolkit-Visual-Studio-Code-v5-Guide#overview) to understand how Teams Toolkit works.
 
