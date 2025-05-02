@@ -7,45 +7,6 @@ import { randomUUID } from 'crypto';
 
 export class TicketLocalService implements TicketService {
     private static tickets: MyTicket[] = null;
-    // private static tickets: Ticket[] = [
-    //     {
-    //         "id": "d4ff8a59-6e1d-4ba0-b4aa-a5d40a2e225d",
-    //         "title": "Campus network failure",
-    //         "description": "Review campus network situation and develop a plan",
-    //         "priority": PriorityEnum.Low,
-    //         "assignee": "CoreyG@M365CPI78904853.OnMicrosoft.com",
-    //         "creator": "Sonia Rees",
-    //         "creationDate": "2024-11-01T00:00:00Z",
-    //         "updateDate": new Date().toISOString(),
-    //         "status": StatusEnum.Open,
-    //         "url": "https://ezcode.ngrok.io/api/me/tickets/d4ff8a59-6e1d-4ba0-b4aa-a5d40a2e225d"
-    //     },
-    //     {
-    //         "id": "ff52a41a-490c-4a87-841c-f20512236be0",
-    //         "title": "Supply chain automation failure",
-    //         "description": " Implement an centralized system to manage product design, track product costing, and define graphic BOM & routes. This will streamline the product lifecycle management and ensure compliance with company policies",
-    //         "priority": PriorityEnum.Normal,
-    //         "assignee": "KaiC@M365CPI78904853.OnMicrosoft.com",
-    //         "creator": "Sonia Rees",
-    //         "creationDate": "2024-11-02T00:00:00Z",
-    //         "updateDate": new Date().toISOString(),
-    //         "status": StatusEnum.Open,
-    //         "url": "https://ezcode.ngrok.io/api/me/tickets/ff52a41a-490c-4a87-841c-f20512236be0"
-    //     },
-    //     {
-    //         "id": "fb0e25a8-2fe7-4a2b-8406-fa5f474d2f67",
-    //         "title": "Purchase product flow failure",
-    //         "description": "Implement a automation to manage product purchase and track product costing. This will streamline the product purchase process and ensure compliance with company policies",
-    //         "priority": PriorityEnum.Critical,
-    //         "assignee": "KaiC@M365CPI78904853.OnMicrosoft.com",
-    //         "creator": "Sonia Rees",
-    //         "creationDate": "2024-11-07T00:00:00Z",
-    //         "updateDate": new Date().toISOString(),
-    //         "status": StatusEnum.Open,
-    //         "url": "https://ezcode.ngrok.io/api/me/tickets/fb0e25a8-2fe7-4a2b-8406-fa5f474d2f67"
-    //     }
-    // ];
-
     private getTicketsInstance = (): Ticket[] => {
         if (!TicketLocalService.tickets) {
             TicketLocalService.tickets = ticketRecords;

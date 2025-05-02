@@ -96,6 +96,49 @@ Response body:
 }
 ```
 
+## Troubleshooting
+When created ticket, you might see "Sorry, I can't chat about this. To save the chat and start a fresh one, select New Chat" error message. it might be caused by a issue that ticket information you provided didn't pass the RAI validation. You can leverage the below prompt to generate test ticket contents which shouldn't violate the RAI rules from Copilot Bizchat. 
+```
+you are IT support agent and trying to create some test support ticket information. the information should included ticket title, description and those information should comply Responsible AI (RAI) guideline to ensure the content doesn't violate RAI rules. please create 5 test support tickets.
+```
+
+the following test prompts also worked: 
+```
+Add a support ticket with the following information: 
+title: Issue with Cloud Storage Access 
+description: User reports difficulty accessing cloud storage. The system prompts an error message stating "Access Denied" despite having the correct permissions. Please investigate and resolve the access issue.
+priority:Low
+
+Add a support ticket with the following information: 
+title: Slow Network Performance 
+description: User experiences slow network performance when accessing company resources remotely. The issue persists across different devices and locations. Please analyze the network logs and identify the root cause of the slowdown.
+priority:Low
+
+Add a support ticket with the following information: 
+title: Software Installation Failure 
+description: User is unable to install the latest version of the CRM software. The installation process halts with an error code 0x80070005. Please assist in troubleshooting the installation issue and ensure the software is correctly installed.
+priority:Low
+
+Add a support ticket with the following information: 
+title: Email Synchronization Problem 
+description: User's email client is not synchronizing with the server. Emails are not being sent or received, and the client displays a "Sync Error" message. Please check the email server settings and resolve the synchronization issue.
+priority:Low
+
+Add a support ticket with the following information: 
+title: Printer Connectivity Issue 
+description: User reports that the office printer is not connecting to the network. The printer displays a "Network Unavailable" message, and users are unable to print documents. Please investigate the network connectivity of the printer and restore its functionality.
+priority:Low
+
+```
+
+You can use the following prompt to check and rephase your test ticket content based on RAI
+```
+Look at the below support ticket information and let me know if it violate the Responsible AI (RAI) guidance? If it does, how can change it to comply RAI guidance?
+title: Jira connector was created failed 
+description: Cannot find Jira connection setup infomration from knowledge.
+```
+
+
 ## What's included in the template
 
 | Folder       | Contents                                                                                    |
@@ -126,6 +169,9 @@ The following are Teams Toolkit specific project files. You can [visit a complet
 | `teamsapp.yml`       | This is the main Teams Toolkit project file. The project file defines two primary things: Properties and configuration Stage definitions. |
 | `teamsapp.local.yml` | This overrides `teamsapp.yml` with actions that enable local execution and debugging.                                                     |
 
+## Update log
+* v1.1: update declarativeAgent.json schema to v1.3
+* v1.0: original version
 ## Addition information and references
 
 - [Declarative agents for Microsoft 365](https://aka.ms/teams-toolkit-declarative-agent)
